@@ -1,0 +1,20 @@
+{
+    "objets": [
+      {
+        "couleur": "#F75C03",
+        "titre": "Pose baie vitrée - 4h",
+        "horaires": ["10h-14h", "14h-18h"]
+      },
+      {
+        "couleur": "#5E60CE",
+        "titre": "Entretien - 1h",
+        "horaires": ["10h-11h", "14h-15h", "18h-19h"]
+      },
+      {
+        "couleur": "#4B4A67",
+        "titre": "Réunion - 2h",
+        "horaires": ["8h-10h"]
+      }
+    ]
+  }
+  

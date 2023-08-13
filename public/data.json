@@ -1,0 +1,140 @@
+{
+  "appointments" : [
+    {
+      "id": 1,
+      "siret": "123456789",
+      "companyName": "My Company",
+      "title": "Meeting",
+      "color": "#5E60CE",
+      "duration": 2,
+      "hours": "09:00 - 11:00",
+      "date": "2023-07-12T09:00:00.000Z",
+      "intervenants": ["John Doe", "Jane Smith"],
+      "clientName": "Client A",
+      "address": "456 Elm St",
+      "note": 4,
+      "punctuality": 5,
+      "friendliness": 4,
+      "interventionQuality": 5,
+      "comment": "Great appointment!"
+    },
+    {
+      "id": 2,
+      "siret": "123456789",
+      "companyName": "My Company",
+      "title": "Presentation",
+      "color": "#F75C03",
+      "duration": 1,
+      "hours": "14:30 - 15:30",
+      "date": "2023-07-15T14:30:00.000Z",
+      "intervenants": ["John Doe"],
+      "clientName": "Client B",
+      "address": "789 Oak St"
+    },
+    {
+      "id": 3,
+      "siret": "987654321",
+      "companyName": "Another Company",
+      "title": "Consultation",
+      "color": "#4B4A67",
+      "duration": 3,
+      "hours": "10:00 - 13:00",
+      "date": "2023-07-17T10:00:00.000Z",
+      "intervenants": ["Jane Smith"],
+      "clientName": "Client C",
+      "address": "123 Maple St",
+      "note": 3,
+      "punctuality": 4,
+      "friendliness": 3,
+      "interventionQuality": 3,
+      "comment": "Average appointment."
+    }
+  ],
+  "filters" : [
+    {
+      "siret": "123456789",
+      "companyName": "My Company",
+      "title": "Meeting",
+      "hours": 2,
+      "color": "#FF0000"
+    },
+    {
+      "siret": "123456789",
+      "companyName": "My Company",
+      "title": "Presentation",
+      "hours": 1,
+      "color": "#00FF00"
+    },
+    {
+      "siret": "987654321",
+      "companyName": "Another Company",
+      "title": "Consultation",
+      "hours": 3,
+      "color": "#0000FF"
+    }
+  ],
+  "users" : [
+    {
+      "id": 1,
+      "email": "admin@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "password": "password",
+      "company": "My Company",
+      "siret": "123456789",
+      "address": "123 Main St",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "employee@example.com",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "password": "password",
+      "company": "My Company",
+      "siret": "123456789",
+      "address": "456 Elm St",
+      "role": "employee"
+    }
+  ],
+  "clients" : [
+    {
+      "siret": "123456789",
+      "companyName": "My Company",
+      "clientName": "Client A",
+      "clientLastName": "Last Name",
+      "clientCompany": "Client Company",
+      "clientPhone": "123-456-7890",
+      "clientPhone2": "987-654-3210",
+      "clientEmail": "clienta@example.com",
+      "clientAddress": "456 Elm St",
+      "clientDepartment": "Department",
+      "clientCity": "City"
+    },
+    {
+      "siret": "123456789",
+      "companyName": "My Company",
+      "clientName": "Client B",
+      "clientLastName": "Last Name",
+      "clientPhone": "555-555-5555",
+      "clientEmail": "clientb@example.com",
+      "clientAddress": "789 Oak St",
+      "clientDepartment": "Department",
+      "clientCity": "City"
+    },
+    {
+      "siret": "987654321",
+      "companyName": "Another Company",
+      "clientName": "Client C",
+      "clientLastName": "Last Name",
+      "clientPhone": "999-999-9999",
+      "clientEmail": "clientc@example.com",
+      "clientAddress": "123 Maple St",
+      "clientDepartment": "Department",
+      "clientCity": "City"
+    }
+  ]
+  
+  
+  }
+  
