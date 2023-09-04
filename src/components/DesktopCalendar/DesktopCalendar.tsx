@@ -38,7 +38,7 @@ const DesktopCalendar: FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     momentNow.toDate()
   );
-  const [currentView, setCurrentView] = useState<string>("week");
+  const [currentView, setCurrentView] = useState<string>("agenda"); //Choisi la vu du calendrier
 
   useEffect(() => {
     // Conversion des rendez-vous de la structure d'Appointment à la structure d'Event
@@ -55,6 +55,7 @@ const DesktopCalendar: FC = () => {
           Number(startHour),
           Number(startMinute)
         );
+        
         const end = new Date(
           startDate.getFullYear(),
           startDate.getMonth(),
@@ -85,44 +86,6 @@ const DesktopCalendar: FC = () => {
       currentDate: selectedDate,
     });
   }, [selectedDate]);
-
-  // const onEventResize: withDragAndDropProps["onEventResize"] = (
-  //   data: EventInteractionArgs<MyEvent>
-  // ) => {
-  //   const { start, end } = data;
-
-  //   setEvents((currentEvents) => {
-  //     const updatedEvents = currentEvents.map((event) => {
-  //       if (event.id === data.event.id) {
-  //         return { ...event, start: new Date(start), end: new Date(end) };
-  //       }
-  //       return event;
-  //     });
-
-  //     return updatedEvents;
-  //   });
-  // };
-
-  // const onEventDrop: withDragAndDropProps["onEventDrop"] = (data) => {
-  //   const { start, end, event } = data;
-
-  //   setEvents((currentEvents) => {
-  //     const updatedEvents = currentEvents.map((currentEvent) => {
-  //       const appointment = currentEvent as Appointment;
-
-  //       if (appointment.id === event.id) {
-  //         return {
-  //           ...currentEvent,
-  //           start: new Date(start),
-  //           end: new Date(end),
-  //         };
-  //       }
-  //       return currentEvent;
-  //     });
-
-  //     return updatedEvents;
-  //   });
-  // };
 
   const handleSelectSlot = (slotInfo: any) => {
     setSelectedDate(slotInfo.start);
@@ -204,6 +167,9 @@ const DesktopCalendar: FC = () => {
           },
         };
       }}
+
+      min={new Date(0, 0, 0, 8, 0, 0)} //Donne l'heure de début du calendrier
+      max={new Date(0, 0, 0, 18, 0, 0)} //Donne l'heure de fin du calendrier
     />
   );
 };
@@ -222,6 +188,9 @@ const localizer = dateFnsLocalizer({
   getDay,
   locales,
 });
+
+
+
 const DnDCalendar = Calendar;
 
 export default DesktopCalendar;

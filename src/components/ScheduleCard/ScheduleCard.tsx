@@ -4,8 +4,8 @@ import { StyledFlexRow } from "../styles/FlexRow.styled";
 import { Flex } from "../styles/Flex.styled";
 import { User, Appointment, Filter, Client } from "../../types";
 import { useScheduleDetailsContext } from "../../helpers/ScheduleDetailsContext";
-import EllipsisPopup from "../Atomes/EllipsisPopup/EllipsisPopup";
-import { StyledEllipsisPopup } from "../Atomes/EllipsisPopup/styles/EllipsisPopup.styled";
+import EllipsisPopup from "../atomes/EllipsisPopup/EllipsisPopup";
+import { StyledEllipsisPopup } from "../Atomes/EllipsisPopup/styles/EllipsisPopup.styled.tsx";
 
 function ScheduleCard({ data }: { data: Appointment }) {
   const [isDetailsDisplayed, setIsDetailsDisplayed] =
@@ -48,9 +48,10 @@ function ScheduleCard({ data }: { data: Appointment }) {
       : setIsEllipsisDisplayed(true);
   };
 
+  
   return (
     <StyledScheduleCard
-      backgroundColorProp={data.clientName ? data.color : null}
+      style={{ backgroundColor: data.clientName ? data.color : null}}
       onClick={handleScheduleDetails}
     >
       {isEllipsisDisplayed ? (

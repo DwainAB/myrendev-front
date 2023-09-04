@@ -12,6 +12,39 @@ function ContactCard({ data }: { data: Client }) {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [addSchedule, setAddSchedule] = useAddScheduleContext();
 
+  //Fonction qui permet d'appeler
+  const handlePhoneCall = () => {
+    const phoneNumber = data.clientPhone; 
+    const telHref = `tel:${phoneNumber}`;
+    window.location.href = telHref;
+  };
+
+  //Fonction qui permet d'envoyer une invitation de rendez-vous
+  const handleSendEmail = () => {
+    const emailAddress = data.clientEmail; //Adress mail du destinataire
+    const emailBody = 
+    `Bonjour Mr/Mme ${data.clientLastName}`; // Remplacez ceci par le contenu de l'e-mail.
+  
+    const mailtoHref = `mailto:${emailAddress}?body=${encodeURIComponent(emailBody)}`;
+    window.location.href = mailtoHref;
+  };
+
+  const handleSendInvitation = () => {
+    const emailAddress = data.clientEmail; //Adress mail du destinataire
+    const emailSubject = 'Veuillez choisir un RDV' //Objet du mail 
+    const emailBody = //Message du mail
+`Bonjour Mr/Mme ${data.clientLastName}
+    
+Nous vous invitons à choisir un crénaux disponible pour un rendez-vous, en cliquant sur ce lien : 
+ 
+Nous vous souhaitons une excellente journée !`;
+  
+    const mailtoHref = `mailto:${emailAddress}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    window.location.href = mailtoHref;
+  };
+  
+  
+
   return (
     <>
       <StyledContactCard
@@ -33,13 +66,14 @@ function ContactCard({ data }: { data: Client }) {
           </StyledFlexRow>
           {isOpened ? (
             <StyledFlexRow className="buttonsRow">
-              <Flex>Téléphoner</Flex>
-              <Flex>Envoyer un mail</Flex>
+              <Flex onClick={handlePhoneCall}>Téléphoner</Flex>
+              <Flex onClick={handleSendEmail}>Envoyer un mail</Flex>
               <Flex
-                onClick={() => (
-                  setAddSchedule({ isDisplayed: true }),
-                  setCustomerState((prev) => ({ ...prev, clientDetails: data }))
-                )}
+                onClick={
+                 // setAddSchedule({ isDisplayed: true }),
+                 // setCustomerState((prev) => ({ ...prev, clientDetails: data }))
+                 handleSendInvitation
+                }
               >
                 Envoyer une invitation
               </Flex>

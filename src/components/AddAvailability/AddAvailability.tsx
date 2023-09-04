@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import { Flex } from "../styles/Flex.styled";
-import ExitButton from "../Atomes/ExitButton/ExitButton";
 import StraightBar from "../Atomes/StraightBar/StraightBar";
 import { FaChevronDown } from "react-icons/fa";
 import { StyledAddAvailability } from "./styles/AddAvailability.styled";
-import { User, Appointment, Filter, Client } from "../../types";
+import { Appointment, Filter } from "../../types";
 import { StyledFlexRow } from "../styles/FlexRow.styled";
 import { useAddScheduleContext } from "../../helpers/AddScheduleContext";
 import useGetFilters from "./hooks/useGetFilters";
@@ -13,7 +12,7 @@ import { useAuthDataContext } from "../../helpers/AuthDataContext";
 import { useCustomerContext } from "../../helpers/CustomerContext";
 import usePostAppointment from "./hooks/usePostAppointment";
 import usePostInvitationAppointment from "./hooks/usePostInvitationAppointment";
-import useGetAppointments from "../../pages/hooks/useGetAppointments";
+
 
 
 function AddAvailability() {
@@ -47,15 +46,25 @@ function AddAvailability() {
   const [filters, setFilters] = useState<Filter[]>([]);
   const [newAvailableHours, setNewAvailableHours] = useState<string[]>([]);
 
-console.log(authData.appointments);
+  const aujourdHui = new Date(); // Date actuelle
+
+  const objetsFiltres = authData.appointments.filter((objet) => {
+    const dateObjet = new Date(objet.date);
+
+    // Comparez la date de l'objet avec la date d'aujourd'hui en utilisant getTime() pour obtenir des valeurs de timestamp.
+    // Si la date de l'objet est supérieure ou égale à aujourd'hui, retournez true pour inclure l'objet dans le résultat filtré.
+    return dateObjet.getTime() >= aujourdHui.getTime();
+  });
+
+console.log(objetsFiltres);
 
   
   const { getFilters } = useGetFilters();
   const { postAppointment } = usePostAppointment();
   const { postInvitationAppointment } = usePostInvitationAppointment();
 
-  var appointmentsArray = [] as Appointment[];
-  var availableHours = [] as string[];
+  let appointmentsArray = [] as Appointment[];
+  let availableHours = [] as string[];
 
   const addFinalAppointments = async () => {
     const manageAppointments = async () => {
@@ -96,8 +105,6 @@ console.log(authData.appointments);
     };
     await manageAppointments();
     postAppointment(appointmentsArray);
-
-    console.log(appointmentsArray);
   };  
 
   const addFinalAppointmentsWithInvitation = async () => {
@@ -139,8 +146,6 @@ console.log(authData.appointments);
     };
     await manageAppointments();
     postInvitationAppointment(appointmentsArray, customerState.clientDetails);
-
-    console.log(appointmentsArray);
   };
 
   useEffect(() => {
@@ -198,8 +203,16 @@ console.log(authData.appointments);
     );
   };
 
+  function calculateMinimumDate() {
+    const today = new Date();
+    today.setDate(today.getDate() + replenishmentPeriod); // Ajoute 3 jours à la date d'aujourd'hui
+    const minDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+    return minDate;
+  }
+  
   return (
     <>
+
       {addSchedule.isDisplayed ? (
         <>
           <StyledAddAvailability>
@@ -327,10 +340,22 @@ console.log(authData.appointments);
                     }}
                   />
 
+                  <label htmlFor="replenishmentPeriod">Délai de réapprovisionnement (en jours)</label>
+                  <input
+                    type="number"
+                    name="replenishmentPeriod"
+                    id=""
+                    value={replenishmentPeriod}
+                    onChange={(e) => {
+                      setReplenishmentPeriod(parseInt(e.currentTarget.value));
+                    }}
+                  />
+
                   <input
                     type="date"
                     name=""
                     id=""
+                    min={calculateMinimumDate()}
                     onChange={(e) => {
                       const selectedDate = moment(e.currentTarget.value, "YYYY-MM-DD").toDate();
                       setSelectedType((prev) => ({
@@ -340,8 +365,6 @@ console.log(authData.appointments);
                       getAvailableHours(selectedDate, selectedType.title, selectedType.duration); // Mettez à jour avec la nouvelle durée
                     }}
                   />
-
-
 
 
                   {/* -------------------------Partie qui gère l'heure du RDV ----------------------------*/}
@@ -372,6 +395,7 @@ console.log(authData.appointments);
                           const isHourReserved = authData.appointments.some((appointment) => {
                             const appointmentStart = moment(appointment.hours.split(" - ")[0], "HH:mm");
                             const appointmentEnd = moment(appointment.hours.split(" - ")[1], "HH:mm");
+                          console.log(appointmentStart);
                           
                             // Vérifier si le nouvel horaire chevauche avec l'horaire existant
                             const overlaps =
@@ -437,18 +461,6 @@ console.log(authData.appointments);
                   </div>
 
 
-                  <label htmlFor="replenishmentPeriod">
-                    Délai de réapprovisionnement (en semaines)
-                  </label>
-                  <input
-                    type="number"
-                    name="replenishmentPeriod"
-                    id=""
-                    value={replenishmentPeriod}
-                    onChange={(e) => {
-                      setReplenishmentPeriod(parseInt(e.currentTarget.value));
-                    }}
-                  />
                   <label htmlFor="daysInARow">Jours consécutifs</label>
                   <input
                     type="number"
